@@ -45,6 +45,11 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnExcel = new System.Windows.Forms.Button();
+            this.dateTP_excel_from = new System.Windows.Forms.DateTimePicker();
+            this.dateTP_excel_to = new System.Windows.Forms.DateTimePicker();
+            this.label_excel_from = new System.Windows.Forms.Label();
+            this.label_excel_to = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,10 +67,11 @@
             this.num,
             this.dd,
             this.sum});
-            this.dataGridView1.Location = new System.Drawing.Point(14, 200);
+            this.dataGridView1.Location = new System.Drawing.Point(14, 190);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(659, 443);
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(1000, 449);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
@@ -77,45 +83,50 @@
             // 
             this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.id.HeaderText = "Id";
+            this.id.MinimumWidth = 6;
             this.id.Name = "id";
             this.id.ReadOnly = true;
-            this.id.Width = 47;
+            this.id.Width = 55;
             // 
             // num_trans
             // 
             this.num_trans.HeaderText = "Номер транзакции";
+            this.num_trans.MinimumWidth = 6;
             this.num_trans.Name = "num_trans";
             // 
             // num
             // 
             this.num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.num.HeaderText = "Номер заказа";
+            this.num.MinimumWidth = 6;
             this.num.Name = "num";
             this.num.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.num.Width = 103;
+            this.num.Width = 120;
             // 
             // dd
             // 
             this.dd.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dd.HeaderText = "Дата покупки";
+            this.dd.MinimumWidth = 6;
             this.dd.Name = "dd";
             this.dd.ReadOnly = true;
-            this.dd.Width = 118;
+            this.dd.Width = 140;
             // 
             // sum
             // 
             this.sum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.sum.HeaderText = "Сумма";
+            this.sum.MinimumWidth = 6;
             this.sum.Name = "sum";
             this.sum.ReadOnly = true;
-            this.sum.Width = 82;
+            this.sum.Width = 93;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(575, 76);
+            this.button1.Location = new System.Drawing.Point(575, 55);
             this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 34);
+            this.button1.Size = new System.Drawing.Size(116, 34);
             this.button1.TabIndex = 1;
             this.button1.Text = "Удалить";
             this.button1.UseVisualStyleBackColor = true;
@@ -123,10 +134,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(575, 34);
+            this.button2.Location = new System.Drawing.Point(575, 10);
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 34);
+            this.button2.Size = new System.Drawing.Size(116, 34);
             this.button2.TabIndex = 2;
             this.button2.Text = "Добавить";
             this.button2.UseVisualStyleBackColor = true;
@@ -138,7 +149,7 @@
             this.label1.Location = new System.Drawing.Point(16, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 19);
+            this.label1.Size = new System.Drawing.Size(139, 23);
             this.label1.TabIndex = 3;
             this.label1.Text = "Выберите дату";
             // 
@@ -148,7 +159,7 @@
             this.label2.Location = new System.Drawing.Point(16, 61);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 19);
+            this.label2.Size = new System.Drawing.Size(183, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = "Сумма сертификата";
             // 
@@ -158,7 +169,7 @@
             this.label3.Location = new System.Drawing.Point(16, 108);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 19);
+            this.label3.Size = new System.Drawing.Size(127, 23);
             this.label3.TabIndex = 5;
             this.label3.Text = "Номер заказа";
             // 
@@ -167,7 +178,7 @@
             this.textBox2.Location = new System.Drawing.Point(171, 104);
             this.textBox2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(383, 27);
+            this.textBox2.Size = new System.Drawing.Size(383, 31);
             this.textBox2.TabIndex = 7;
             // 
             // dateTimePicker1
@@ -175,7 +186,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(171, 10);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(383, 27);
+            this.dateTimePicker1.Size = new System.Drawing.Size(383, 31);
             this.dateTimePicker1.TabIndex = 8;
             // 
             // textBox1
@@ -183,7 +194,7 @@
             this.textBox1.Location = new System.Drawing.Point(171, 56);
             this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(383, 27);
+            this.textBox1.Size = new System.Drawing.Size(383, 31);
             this.textBox1.TabIndex = 9;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -192,7 +203,7 @@
             this.textBox3.Location = new System.Drawing.Point(171, 151);
             this.textBox3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(383, 27);
+            this.textBox3.Size = new System.Drawing.Size(383, 31);
             this.textBox3.TabIndex = 11;
             // 
             // label4
@@ -201,15 +212,67 @@
             this.label4.Location = new System.Drawing.Point(16, 155);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 19);
+            this.label4.Size = new System.Drawing.Size(168, 23);
             this.label4.TabIndex = 10;
             this.label4.Text = "Номер транзакции";
             // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(797, 101);
+            this.btnExcel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(217, 34);
+            this.btnExcel.TabIndex = 12;
+            this.btnExcel.Text = "Вывести в Excel";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // dateTP_excel_from
+            // 
+            this.dateTP_excel_from.Location = new System.Drawing.Point(797, 10);
+            this.dateTP_excel_from.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.dateTP_excel_from.Name = "dateTP_excel_from";
+            this.dateTP_excel_from.Size = new System.Drawing.Size(217, 31);
+            this.dateTP_excel_from.TabIndex = 13;
+            // 
+            // dateTP_excel_to
+            // 
+            this.dateTP_excel_to.Location = new System.Drawing.Point(797, 53);
+            this.dateTP_excel_to.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.dateTP_excel_to.Name = "dateTP_excel_to";
+            this.dateTP_excel_to.Size = new System.Drawing.Size(217, 31);
+            this.dateTP_excel_to.TabIndex = 14;
+            // 
+            // label_excel_from
+            // 
+            this.label_excel_from.AutoSize = true;
+            this.label_excel_from.Location = new System.Drawing.Point(765, 16);
+            this.label_excel_from.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label_excel_from.Name = "label_excel_from";
+            this.label_excel_from.Size = new System.Drawing.Size(22, 23);
+            this.label_excel_from.TabIndex = 15;
+            this.label_excel_from.Text = "С";
+            // 
+            // label_excel_to
+            // 
+            this.label_excel_to.AutoSize = true;
+            this.label_excel_to.Location = new System.Drawing.Point(761, 58);
+            this.label_excel_to.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label_excel_to.Name = "label_excel_to";
+            this.label_excel_to.Size = new System.Drawing.Size(30, 23);
+            this.label_excel_to.TabIndex = 16;
+            this.label_excel_to.Text = "по";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(697, 662);
+            this.ClientSize = new System.Drawing.Size(1029, 662);
+            this.Controls.Add(this.label_excel_to);
+            this.Controls.Add(this.label_excel_from);
+            this.Controls.Add(this.dateTP_excel_to);
+            this.Controls.Add(this.dateTP_excel_from);
+            this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox1);
@@ -250,6 +313,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn num;
         private System.Windows.Forms.DataGridViewTextBoxColumn dd;
         private System.Windows.Forms.DataGridViewTextBoxColumn sum;
+        private System.Windows.Forms.Button btnExcel;
+        private System.Windows.Forms.DateTimePicker dateTP_excel_from;
+        private System.Windows.Forms.DateTimePicker dateTP_excel_to;
+        private System.Windows.Forms.Label label_excel_from;
+        private System.Windows.Forms.Label label_excel_to;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Покупка_электронных_сертификатов_на_сайте
 {
@@ -31,7 +32,7 @@ namespace Покупка_электронных_сертификатов_на_с
 
             if (dateTimePicker1.Value == null)
             {
-                MessageBox.Show("Выберите дату", "Не верный формат даты", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите дату", "Неверный формат даты", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (String.IsNullOrEmpty(textBox1.Text.Trim()))
@@ -253,6 +254,101 @@ namespace Покупка_электронных_сертификатов_на_с
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             tmp = dataGridView1.CurrentCell.Value.ToString();
+        }
+
+        // Вывод данных в Excel
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            DateTime ddFrom = dateTP_excel_from.Value.Date;
+            DateTime ddTo = dateTP_excel_to.Value.Date;
+
+            // Проверка корректности введённого периода
+            if (ddFrom == null || ddTo == null || ddFrom > ddTo)
+            {
+                MessageBox.Show("Введён неверный период", "Выберите дату", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Получаем подтверждение от пользователя
+            if (MessageBox.Show($"Вывести данные в Excel с {ddFrom:dd.MM.yyyy} по {ddTo:dd.MM.yyyy} ?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+
+            DataTable tab = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = DBUtils.GetDBConnection())
+                {
+                    conn.Open();  // закрывать необязательно, т.к. используем using
+                    using (SqlCommand comm = new SqlCommand())
+                    {
+                        comm.CommandText = @"select id, transaction_nomer, number, dd, summa from Inet_zakaz.dbo.sertifikat_pokupka where dd between @from and @to";
+
+                        comm.Parameters.AddWithValue("@from", ddFrom);
+                        comm.Parameters.AddWithValue("@to", ddTo);
+                        comm.Connection = conn;
+
+                        tab.Load(comm.ExecuteReader());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при получении данных из БД:\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (tab.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных за выбранный период", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Вывод в Excel
+            Excel.Application excelApp = new Excel.Application();
+            if (excelApp == null)
+            {
+                MessageBox.Show("Excel не установлен");
+                return;
+            }
+
+            excelApp.Visible = false;
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
+            Excel.Worksheet worksheet = workbook.Sheets[1];
+
+            // Вывод заголовков
+            for (int i = 0; i < tab.Columns.Count; i++)
+                worksheet.Cells[1, i + 1] = tab.Columns[i].ColumnName;
+
+            // Изменение ширины столбцов
+            worksheet.Columns["B"].ColumnWidth = 16;
+            worksheet.Columns["C"].ColumnWidth = 16;
+            worksheet.Columns["D"].ColumnWidth = 20;
+            worksheet.Columns["E"].ColumnWidth = 12;
+
+            // Выравнивание столбцов по правому краю
+            worksheet.Columns["A"].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            worksheet.Columns["B"].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            worksheet.Columns["C"].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            worksheet.Columns["D"].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            worksheet.Columns["E"].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+
+            // Вывод данных
+            for (int i = 0; i < tab.Rows.Count; i++)
+            {
+                for (int j = 0; j < tab.Columns.Count; j++)
+                {
+                    object value = tab.Rows[i][j];
+                    if (value != null)
+                        worksheet.Cells[i + 2, j + 1] = value.ToString();
+                    else
+                        worksheet.Cells[i + 2, j + 1] = "";
+                }
+            }
+
+            MessageBox.Show("Данные успешно экспортированы в Excel", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            excelApp.Visible = true;
         }
     }
 }

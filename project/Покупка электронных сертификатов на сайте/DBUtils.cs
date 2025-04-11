@@ -14,7 +14,7 @@ namespace Покупка_электронных_сертификатов_на_с
 
         public static SqlConnection GetDBConnection()
         {
-            string datasource = @"apteka-server";
+            string datasource = @"";
 
             string username = "";
             string password = "";
